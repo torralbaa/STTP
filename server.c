@@ -56,7 +56,7 @@ int main(int argc, char *argv[])
 	listen(mdsocket, 5);
 	clilen = sizeof(cli_addr);
 	new_mdsocket = accept(mdsocket, (struct mdaddr *) &cli_addr, &clilen);
-	printf("101 - Conectado %s:3890\n", inet_ntoa(cli_addr.sin_addr));
+	printf("101 - Conectado %s:3890. (STTP/1.0)\n", inet_ntoa(cli_addr.sin_addr));
 	bzero(buffer, 255);
 	n = read(new_mdsocket, buffer, 254);
 	printf("Mensaje del cliente: %s", buffer);
