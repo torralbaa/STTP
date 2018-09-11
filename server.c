@@ -54,21 +54,24 @@ int main(int argc, char *argv[])
 		printf("202 - El puerto necesario no está disponible.\n");
 		return 1;
 	}
-	listen(stsocket, 5);
-	clilen = sizeof(cli_addr);
-	new_stsocket = accept(stsocket, (struct sockaddr *) &cli_addr, &clilen);
-	printf("101 - Conectado %s:3890. (STTP/1.0)\n", inet_ntoa(cli_addr.sin_addr));
-	bzero(buffer, 2048);
-	n = read(new_stsocket, buffer, 2047);
-	printf("Mensaje del cliente: %s", buffer);
-	n = write(new_stsocket, "100 - Mensaje recibido.", 29);
-	if (n < 0)
+	while (1 != 0)
 	{
-		write(new_stsocket, "200 - No se pudo escribir o leer el socket.\n", 55);
-		printf("200 - No se pudo escribir o leer el socket.\n");
-		return 2;
+		listen(stsocket, 5);
+		clilen = sizeof(cli_addr);
+		new_stsocket = accept(stsocket, (struct sockaddr *) &cli_addr, &clilen);
+		printf("101 - Conectado %s:3890. (STTP/1.0)\n", inet_ntoa(cli_addr.sin_addr));
+		bzero(buffer, 2048);
+		n = read(new_stsocket, buffer, 2047);
+		printf("Mensaje del cliente: %s", buffer);
+		n = write(new_stsocket, "100 - Mensaje recibido.", 29);
+		if (n < 0)
+		{
+			write(new_stsocket, "200 - No se pudo escribir o leer el socket.\n", 55);
+			printf("200 - No se pudo escribir o leer el socket.\n");
+			return 2;
+		}
+		printf("100 - Mensaje recibido.\n");
 	}
-	printf("100 - Mensaje recibido.\n");
 	close(new_stsocket);
 	close(stsocket);
 	return 0; 
