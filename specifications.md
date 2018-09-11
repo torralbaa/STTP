@@ -14,7 +14,7 @@ Una implementación no es compatible si no cumple con uno o más de los requisit
 
 ### 2. Protocolo STTP
 #### 2.1. Operación general
-En el protocolo STTP el servidor se mantiene a la escucha de que algún cliente que se conecte a él y envíe un mensaje codificado en UTF-8. Cuando el servidor recibe el mensaje envía al cliente una confirmación de esto, muestra el mensaje recibido y sale. Si el proceso falla en algún momento, el servidor enviará el código del error ocurrido más un mensaje que lo describa al cliente.
+En el protocolo STTP el servidor se mantiene a la escucha de que algún cliente que se conecte a él y envíe un mensaje codificado en UTF-8. Cuando el servidor recibe el mensaje envía al cliente una confirmación de esto, muestra el mensaje recibido repite el proceso. Si este falla en algún momento, el servidor enviará el código del error ocurrido más un mensaje que lo describa al cliente.
 
 La comunicación STTP se lleva a cabo a través de conexiones TCP/IP. El puerto predeterminado para el protocolo es 3890, lo que no impide que se implemente en cualquier otro puerto.
 
@@ -128,5 +128,3 @@ Agradezco también a todos aquellos que trabajan para que Internet sea lo que es
 
 ### Anexo A. Errores conocidos o posibles
 Nota: Este anexo solamente debe tomarse en cuenta si se está leyendo esta especificación desde el repositorio git oficial del protocolo, donde hay implementaciones del mismo.
-
-Se ha encontrado un posible error en la implementación escrita en C adjunta en este repositorio: Si usted acaba de terminar de ejecutar un servidor, para volver a ejecutarlo tendrá que esperar apróximadamente 30 segundos porque, al parecer, el servidor tarda la cantidad de tiempo ya mencionada para cerrar el puerto 3890 de la computadora y devolverá el error 202 si este no está disponible.
