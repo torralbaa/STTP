@@ -34,7 +34,7 @@ int main(int argc, char *argv[])
 {
 	int mdsocket, new_mdsocket, mdport, n;
 	socklen_t clilen;
-	char buffer[255], fileaddr[256], fileconts[426];
+	char buffer[2048];
 	struct sockaddr_in addres, cli_addr;
 	if (argc == 2 && strcmp(argv[1], "-h") == 0 || argc == 2 && strcmp(argv[1], "--help") == 0)
 	{
@@ -57,8 +57,8 @@ int main(int argc, char *argv[])
 	clilen = sizeof(cli_addr);
 	new_mdsocket = accept(mdsocket, (struct mdaddr *) &cli_addr, &clilen);
 	printf("101 - Conectado %s:3890. (STTP/1.0)\n", inet_ntoa(cli_addr.sin_addr));
-	bzero(buffer, 255);
-	n = read(new_mdsocket, buffer, 254);
+	bzero(buffer, 2048);
+	n = read(new_mdsocket, buffer, 2047);
 	printf("Mensaje del cliente: %s", buffer);
 	n = write(new_mdsocket, "100 - Mensaje recibido.", 29);
 	if (n < 0)
