@@ -63,7 +63,7 @@ int main(int argc, char *argv[])
 	addres.sin_family = AF_INET;
 	bcopy((char *)server->h_addr, (char *)&addres.sin_addr.s_addr, server->h_length);
 	addres.sin_port = htons(mdport);
-	connect(mdsocket, (struct mdaddr *) &addres, sizeof(addres));
+	connect(mdsocket, (struct sockaddr *) &addres, sizeof(addres));
 	printf("101 - Conectado. (STTP/1.0)\n");
 	printf("Ingrese el mesaje a enviar al servidor: ");
 	bzero(buffer, 2048);
