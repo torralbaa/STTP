@@ -18,9 +18,10 @@ En el protocolo STTP el servidor se mantiene a la escucha de que algún cliente 
 
 La comunicación STTP se lleva a cabo a través de conexiones TCP/IP. El puerto predeterminado para el protocolo es 3890, lo que no impide que se implemente en cualquier otro puerto.
 
-Las comunicaciones STTP son iniciadas por un usuario que envía una solicitud al servidor. Estas pueden llevarse a cabo a través de una única conexión (C) entre el cliente (U) y el servidor (S)
+Las comunicaciones STTP son iniciadas por un usuario que envía un mensaje al servidor. Estas deben llevarse a cabo a través de dos conexiones (C y G) entre el cliente (U) y el servidor (S).
 ```
-solicitud -----> U --- C --- S <----- confirmación
+mensaje -----> U --- C ---> S
+U <--- G --- S <----- confirmación
 ```
 
 ### 3. Convenciones de notación y gramática genérica
@@ -115,12 +116,17 @@ El servidor al cual un cliente se conecta está en posición de guardar toda la 
 #### 7.3. Transferencia de datos ilegales
 Como cualquier otro protocolo de tranferencia de datos, STTP no puede controlar la información que se transmite mediante el mismo, lo cual sería ilegal en muchos países. Por este motivo ni los proveedores de servicios ni los desarrolladores se harán cargo de cualquier inconveniente causado por tráfico de información ilegal, secreta o restringida.
 
-Hata este momento no se han encontrado vulnerabilidades técnicas en el protocolo, pero existen.
+Hata este momento no se han encontrado vulnerabilidades técnicas que afecten a la seguridad en el protocolo, pero existen.
 
 ### 8. Agradecimientos
 En esta especificación se ha hecho uso de las construcciones genéricas definidas por David H. Crocker para el [RFC 822](https://tools.ietf.org/html/rfc822) y su estructura está basada en la del [RFC 2616](https://tools.ietf.org/html/rfc2616).
 
-Agradezco también a todos aquellos que trabajan para que el Internet sea lo que es hoy y más.
+Agradezco también a todos aquellos que trabajan para que Internet sea lo que es hoy y más.
 
 ### 9. Datos del autor
 Álvaro Torralba \<donfrutosgomez@gmail.com> (http://alvarito050506.tk/)
+
+### Anexo A. Errores conocidos o posibles
+Nota: Este anexo solamente debe tomarse en cuenta si se está leyendo esta especificación desde el repositorio git oficial del protocolo, donde hay implementaciones del mismo.
+
+Se ha encontrado un posible error en la implementación escrita en C adjunta en este repositorio: Si usted acaba de terminar de ejecutar un servidor, para volver a ejecutarlo tendrá que esperar apróximadamente 30 segundos porque, al parecer, el servidor tarda la cantidad de tiempo ya mencionada para cerrar el puerto 3890 de la computadora y devolverá el error 202 si este no está disponible.
