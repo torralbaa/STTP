@@ -32,7 +32,7 @@
 
 int main(int argc, char *argv[])
 {
-	int mdsocket, mdport;
+	int stsocket, stport;
 	struct sockaddr_in addres;
 	struct hostent *server;
 	char buffer[2048];
@@ -41,14 +41,14 @@ int main(int argc, char *argv[])
 		printf("Uso: %s [opciones] host\nOpciones:\n\t-h, --help\tMuestra esta ayuda.\n\nEl argumento <host> es el nombre del host a conectarse. El cliente se conectará al puerto 3890 de este.\n\nEstado de salida:\n\t0 si todo fue bien.\n\t1 si no se pudo crear el socket.\n\t2 si no se especificó un host.\n\t3 si el host no es válido.\n", argv[0]);
 		return 0;
 	}
-	mdport = 3890;
-	mdsocket = socket(AF_INET, SOCK_STREAM, 0);
+	stport = 3890;
+	stsocket = socket(AF_INET, SOCK_STREAM, 0);
 	if (argc < 2)
 	{
 		printf("300 - No se especificó un host.\n");
 		return 1;
 	}
-	if (socket < 0)
+	if (stsocket < 0)
 	{
 		printf("201 - No se pudo crear el socket.\n");
 		return 2;
@@ -62,16 +62,16 @@ int main(int argc, char *argv[])
 	bzero((char *) &addres, sizeof(addres));
 	addres.sin_family = AF_INET;
 	bcopy((char *)server->h_addr, (char *)&addres.sin_addr.s_addr, server->h_length);
-	addres.sin_port = htons(mdport);
-	connect(mdsocket, (struct sockaddr *) &addres, sizeof(addres));
+	addres.sin_port = htons(stport);
+	connect(stsocket, (struct sockaddr *) &addres, sizeof(addres));
 	printf("101 - Conectado. (STTP/1.0)\n");
 	printf("Ingrese el mesaje a enviar al servidor: ");
 	bzero(buffer, 2048);
 	fgets(buffer, 2047, stdin);
-	write(mdsocket, buffer, strlen(buffer));
+	write(stsocket, buffer, strlen(buffer));
 	bzero(buffer, 2048);
-	read(mdsocket, buffer, 2047);
+	read(stsocket, buffer, 2047);
 	printf("%s\n", buffer);
-	close(mdsocket);
+	close(stsocket);
 	return 0;
 }
