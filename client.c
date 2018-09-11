@@ -53,14 +53,14 @@ int main(int argc, char *argv[])
 		return 2;
 	}
 	bzero((char *) &address, sizeof(address));
-	addres.sin_family = AF_INET;
+	address.sin_family = AF_INET;
 	address.sin_addr.s_addr = inet_addr(argv[1]);
 	if (address.sin_addr.s_addr < 0)
 	{
 		printf("301 - El host %s no es válido.\n", argv[1]);
 		return 3;
 	}
-	addres.sin_port = htons(stport);
+	address.sin_port = htons(stport);
 	connect(stsocket, (struct sockaddr *) &address, sizeof(address));
 	printf("101 - Conectado. (STTP/1.0)\n");
 	printf("Ingrese el mesaje a enviar al servidor: ");
