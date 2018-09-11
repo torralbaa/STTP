@@ -18,10 +18,9 @@ En el protocolo STTP el servidor se mantiene a la escucha de que algún cliente 
 
 La comunicación STTP se lleva a cabo a través de conexiones TCP/IP. El puerto predeterminado para el protocolo es 3890, lo que no impide que se implemente en cualquier otro puerto.
 
-Las comunicaciones STTP son iniciadas por un usuario que envía un mensaje al servidor. Estas deben llevarse a cabo a través de dos conexiones (C y G) entre el cliente (U) y el servidor (S).
+Las comunicaciones STTP son iniciadas por un usuario que envía un mensaje al servidor. Estas deben llevarse a cabo a través de una única conexión (C) entre el cliente (U) y el servidor (S).
 ```
-mensaje -----> U --- C ---> S
-U <--- G --- S <----- confirmación
+mensaje -----> U --- C --- S <----- confirmación
 ```
 
 ### 3. Convenciones de notación y gramática genérica
