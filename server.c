@@ -44,9 +44,9 @@ int main(int argc, char *argv[])
 	stsocket = socket(AF_INET, SOCK_STREAM, 0);
 	bzero((char *) &address, sizeof(address));
 	stport = 3890;
-	addres.sin_family = AF_INET;
-	addres.sin_addr.s_addr = htonl(INADDR_ANY);
-	addres.sin_port = htons(stport);
+	address.sin_family = AF_INET;
+	address.sin_addr.s_addr = htonl(INADDR_ANY);
+	address.sin_port = htons(stport);
 	n = bind(stsocket, (struct sockaddr *) &address, sizeof(address)); 
 	if (n < 0)
 	{
