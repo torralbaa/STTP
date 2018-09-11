@@ -33,7 +33,7 @@
 int main(int argc, char *argv[])
 {
 	int stsocket, stport;
-	struct sockaddr_in addres;
+	struct sockaddr_in address;
 	struct hostent *server;
 	char buffer[2048];
 	if (argc == 2 && strcmp(argv[1], "-h") == 0 || argc == 2 && strcmp(argv[1], "--help") == 0)
@@ -59,11 +59,11 @@ int main(int argc, char *argv[])
 		printf("301 - El host %s no es válido.\n", argv[1]);
 		return 3;
 	}
-	bzero((char *) &addres, sizeof(addres));
+	bzero((char *) &address, sizeof(address));
 	addres.sin_family = AF_INET;
-	bcopy((char *)server->h_addr, (char *)&addres.sin_addr.s_addr, server->h_length);
+	bcopy((char *)server->h_addr, (char *)&address.sin_addr.s_addr, server->h_length);
 	addres.sin_port = htons(stport);
-	connect(stsocket, (struct sockaddr *) &addres, sizeof(addres));
+	connect(stsocket, (struct sockaddr *) &address, sizeof(address));
 	printf("101 - Conectado. (STTP/1.0)\n");
 	printf("Ingrese el mesaje a enviar al servidor: ");
 	bzero(buffer, 2048);
