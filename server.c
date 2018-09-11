@@ -38,10 +38,15 @@ int main(int argc, char *argv[])
 	struct sockaddr_in address, cli_addr;
 	if (argc == 2 && strcmp(argv[1], "-h") == 0 || argc == 2 && strcmp(argv[1], "--help") == 0)
 	{
-		printf("Uso: %s [opciones]\nOpciones:\n\t-h, --help\tMuestra esta ayuda.\n\nEstado de salida:\n\t0 si todo fue bien.\n\t1 si el puerto necesario no está disponible.\n\t2 si no se pudo escribir o leer el socket.\n", argv[0]);
+		printf("Uso: %s [opciones]\nOpciones:\n\t-h, --help\tMuestra esta ayuda.\n\nEstado de salida:\n\t0 si todo fue bien.\n\t1 si el puerto necesario no está disponible.\n\t2 si no se pudo crear el socket.\n\t3 si no se pudo escribir o leer el socket.\n", argv[0]);
 		return 0;
 	}
 	stsocket = socket(AF_INET, SOCK_STREAM, 0);
+	if (stsocket < 0)
+	{
+		printf("201 - No se pudo crear el socket.\n");
+		return 2;
+	}
 	bzero((char *) &address, sizeof(address));
 	stport = 3890;
 	address.sin_family = AF_INET;
@@ -59,6 +64,11 @@ int main(int argc, char *argv[])
 		listen(stsocket, 5);
 		clilen = sizeof(cli_addr);
 		new_stsocket = accept(stsocket, (struct sockaddr *) &cli_addr, &clilen);
+		if (new_stsocket < 0)
+		{
+			printf("201 - No se pudo crear el socket.\n");
+			return 2;
+		}
 		printf("101 - Conectado %s:3890. (STTP/1.0)\n", inet_ntoa(cli_addr.sin_addr));
 		bzero(buffer, 2048);
 		n = read(new_stsocket, buffer, 2047);
@@ -68,7 +78,7 @@ int main(int argc, char *argv[])
 		{
 			write(new_stsocket, "200 - No se pudo escribir o leer el socket.\n", 55);
 			printf("200 - No se pudo escribir o leer el socket.\n");
-			return 2;
+			return 3;
 		}
 		printf("100 - Mensaje recibido.\n");
 	}
