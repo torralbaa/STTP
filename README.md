@@ -25,8 +25,3 @@ unzip ./STTP-master
 cd ./STTP-master
 make
 ```
-
-## Errores conocidos o posibles
-Advertencia: STTP/1.0 **NO BRINDA ABSOLUTAMENTE NINGUNA GARANTÍA DE CALIDAD, SEGURIDAD O PROTECCIÓN DE DATOS.**
-
-Se ha encontrado un posible error en la implementación escrita en C adjunta en este repositorio: Si usted acaba de terminar de ejecutar un servidor, para volver a ejecutarlo tendrá que esperar apróximadamente 30 segundos porque, al parecer, el servidor tarda la cantidad de tiempo ya mencionada para cerrar el puerto 3890 de la computadora y devolverá el error 202 si este no está disponible.
