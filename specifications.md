@@ -14,7 +14,7 @@ Una implementación no es compatible si no cumple con uno o más de los requisit
 
 ### 2. Protocolo STTP
 #### 2.1. Operación general
-En el protocolo STTP el servidor se mantiene a la escucha de que algún cliente que se conecte a él y envíe un mensaje codificado en UTF-8. Cuando el servidor recibe el mensaje envía al cliente una confirmación de esto, muestra el mensaje recibido repite el proceso. Si este falla en algún momento, el servidor enviará el código del error ocurrido más un mensaje que lo describa al cliente.
+En el protocolo STTP el servidor se mantiene a la escucha de que algún cliente que se conecte a él y envíe un mensaje codificado en UTF-8. Cuando el servidor recibe el mensaje envía al cliente una confirmación de esto, muestra el mensaje recibido y repite el proceso. Si este falla en algún momento, el servidor enviará el código del error ocurrido más un mensaje que lo describa al cliente. Opcionalmente, el servidor, cuando hubo recibido el mensaje del cliente, puede enviar a este una respuesta más amplia en formato de texto plano o con formato de marcado _Pango_.
 
 La comunicación STTP se lleva a cabo a través de conexiones TCP/IP. El puerto predeterminado para el protocolo es 3890, lo que no impide que se implemente en cualquier otro puerto.
 
@@ -52,17 +52,17 @@ En realidad, los URIs STTP no existen, ya que el único dato que le tiene que pr
 STTP-URL = "sttp:" "//" host [":" puerto]
 ```
 #### 4.3. Codificación de los datos
-Todos los datos que se transmiten mediante STTP lo hacen bajo el MIME type text/plain usando el charset **UTF-8**.
+Todos los datos que se transmiten mediante STTP lo hacen bajo el MIME type text/plain usando el charset **UTF-8**. STTP no soporta archvios binarios como imágenes.
 
 ### 5. Mensajes STTP
 #### 5.1. Tipos de mensajes
-Los tipos de mensajes que existen son: estados de servidor a cliente y texto del cliente al servidor.
+Los tipos de mensajes que existen son: estados de servidor a cliente, texto del cliente al servidor y en formato Pango del servidor al cliente (opcionalmente).
 ```
-STTP-Message = Estados / Texto
+STTP-Message = Estados / Texto / Pango
 ```
-Los mensajes de estado le informan al cliente y, a veces, al mismo servidor el estado del proceso y la conexión. Los mensajes de texto le envían al servidor el texto que ingresó el usuario en el cliente.
+Los mensajes de estado le informan al cliente y, a veces, al mismo servidor el estado del proceso y la conexión, los mensajes de texto le envían al servidor el texto que ingresó el usuario en el cliente y los mensajes en formato Pango permiten que el servidor pueda enviar información o contenido detallado al cliente.
 #### 5.2. Mensajes de estado
-Los mensajes de estado envían un código de estado de tres dígitos junto con una breve descripción del mismo.
+Los mensajes de estado envían un código de estado de tres dígitos junto con una breve descripción del mismo desde el servidor.
 
 El primer dígito del código de estado define de que tipo es. Los dos últimos dígitos no tienen ningún valor de categorización. Hay tres valores para el primer dígito:
 
@@ -81,6 +81,8 @@ Los mensajes de texto del cliente al servidor, como ya se mencionó, envían al 
 ```
 STTP-Text = indication [":"] user_text
 ```
+#### 5.4. Mensajes en formato Pango
+Los mensajes en formato _Pango_ permiten que el servidor pueda enviar información adicional o contenido detallado al cliente, estos mensajes se pueden analizar léxica, sintáctica y gramáicamente, ya sea ejecutando un servidor gráfico o no.
 
 ### 6. Definiciones de códigos de estado
 #### 6.1. 1xx - Éxito
