@@ -11,7 +11,7 @@ La implementación de STTP es software libre; puedes redistribuirlo y/o modifica
 
 ## Obtener las fuentes
 Para obtener el código fuente de la implementación de STTP incluida aquí existen dos opciones:
-- Clonar el repositorio: Para clonar el repositorio, ingrese en su terminal el siguiente comando:
+- Clonar el repositorio: para clonar el repositorio, ingrese en su terminal el siguiente comando:
 ```sh
 git clone https://github.com/Alvarito050506/Yed.git
 ```
