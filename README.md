@@ -21,7 +21,7 @@ git clone https://github.com/Alvarito050506/Yed.git
 ## Compilar
 Para compilar la implementación **STTP** incluida en este repositorio primero [obtenga las fuentes](https://github.com/Alvarito050506/STTP/blob/master/README.md#obtener-las-fuentes) y luego ingrese los siguientes comandos:
 ```sh
-unzip ./STTP-master
+unzip ./STTP-master.zip
 cd ./STTP-master
 make
 ```
